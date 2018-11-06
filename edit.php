@@ -25,7 +25,7 @@
         header("Location: timeline.php");
         exit();
     }
-    v(array();)
+    
 
 
 
