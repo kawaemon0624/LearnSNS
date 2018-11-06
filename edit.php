@@ -17,15 +17,16 @@
     //今データを格納したfeedを使って、画面に編集データを表示しましょう。
      if (!empty($_POST)) {
         $update_sql = "UPDATE `feeds` SET `feed` = ? WHERE `feeds`.`id` = ?";
-
+        //変更されたつぶやきをDBに上書き保存する
         $data = array($_POST["feed"],$feed_id);
+        //sql文の実行
         $stmt = $dbh->prepare($update_sql);
         $stmt->execute($data);
-
+        //タイムラインへ推移
         header("Location: timeline.php");
         exit();
     }
-    
+
 
 
 
