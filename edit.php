@@ -22,7 +22,7 @@
         //sql文の実行
         $stmt = $dbh->prepare($update_sql);
         $stmt->execute($data);
-        //タイムラインへ推移
+        //タイムラインへ遷移
         header("Location: timeline.php");
         exit();
     }
