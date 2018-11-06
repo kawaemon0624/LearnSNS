@@ -140,45 +140,17 @@
             <input type="submit" value="投稿する" class="btn btn-primary">
           </form>
         </div>
-          <?php foreach ($feeds as $feed_each) { ?>
-            <!-- foreachデータを取り出したい配列　as 一個分を格納しえ起きたい変数  { }は繰り返したい文-->
-          <div class="thumbnail">
-            <div class="row">
-              <div class="col-xs-1">
-                <img src="user_profile_img/<?= h($feed_each["profile_image"]); ?>" width="40">
-              </div>
-              <div class="col-xs-11">
-                <?php echo $feed_each["name"] ?><br>
-                <a href="#" style="color: #7F7F7F;"><?php echo $feed_each["created"]; ?>
-                  <!-- 時間 -->
-                </a>
-              </div>
-            </div>
-            <div class="row feed_content">
-              <div class="col-xs-12" >
-                <span style="font-size: 24px;"><?php echo $feed_each["feed"]; ?></span>
-                <!-- 格ユーザーが書いたのを表示させる -->
-              </div>
-            </div>
-            <div class="row feed_sub">
-              <div class="col-xs-12">
-                <form method="POST" action="" style="display: inline;">
-                  <input type="hidden" name="feed_id" >
-                  
-                    <input type="hidden" name="like" value="like">
-                    <button type="submit" class="btn btn-default btn-xs"><i class="fa fa-thumbs-up" aria-hidden="true"></i>いいね！</button>
-                </form>
-                <span class="like_count">いいね数 : 100</span>
-                <span class="comment_count">コメント数 : 9</span>
-                <?php if($_SESSION['id'] == $feed_each["user_id"]): ?>
-                  <a href="edit.php?feed_id=<?=$feed_each['id']; ?>" class="btn btn-success btn-xs">編集</a>
-                  <a onclick="return confirm('本当に消すの？');" href="delete.php?feed_id=<?=$feed_each['id']; ?>" class="btn btn-danger btn-xs">削除</a>
-                  <!-- ジャバスクリプト  # 飛ばす先未定-->
-                <?php endif; ?>
-              </div>
-            </div>
-          </div><!-- class="thumbnailタグ" --> 
-        <?php } ?>
+        <!-- foreachデータを取り出したい配列　as 一個分を格納しえ起きたい変数  { }は繰り返したい文-->
+          <?php foreach ($feeds as $feed_each) {
+            //requireとの違い
+            //includeは別ファイルを読み込む
+            //requireは読み込んだ外部ファイル内でエラーが発生した場合、処理を中断する。
+            //include...読み込んだ外部ファイル内でエラーが発生した場合、処理を継続する。
+            //用途
+            //require...DB接続などエラーが出ると致命的な処理に使用
+            //include...HTML、CSSなど表示系に使用（一部表示にエラーが出ていても処理ができる可能性がある）
+            include("timeline_row.php");
+          } ?>
 
         <div aria-label="Page navigation">
           <ul class="pager">
