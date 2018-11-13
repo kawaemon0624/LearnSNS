@@ -57,17 +57,17 @@
         //所得でーたは全て所得できているので、繰り返しを中断する
         break;
       }
-
+      
       //いいね済みかどうかの確認
       $like_flag_sql = "SELECT * FROM `likes`WHERE `user_id`= ? AND `feed_id`=?";//flag::されてるかされていないか
-      $like_flag_data = [$signin_user['id'],$feed['id']];
+      $like_flag_data = array($signin_user['id'],$feed['id']);
       $like_flag_stmt = $dbh->prepare($like_flag_sql);
       $like_flag_stmt->execute($like_flag_data);
 
       $is_liked = $like_flag_stmt->fetch(PDO::FETCH_ASSOC);
-
+      
       //三項演算子（if文の省略形。代入のみの場合に使える）
-      $feed['is_liked'] = $is_liked _ true:false;
+      $feed['is_liked'] = $is_liked ? true:false;
       // 下のif文と全く一緒の処理
       // if ($is_liked) { $feed['is_liked']= true;}else{$feed['is_liked']=false;}
 

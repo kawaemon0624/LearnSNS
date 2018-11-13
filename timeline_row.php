@@ -27,10 +27,18 @@
                 <span class="like_count">いいね数 : 100</span> -->
                 <!-- classは何回もかける　idは一回しかかけない -->
                <span hidden class="feed-id" ><?= $feed_each["id"] ?></span>
+               <?php if ($feed_each['is_liked']):?>
+                <button class="btn btn-default btn-xs js-unlike">
+                <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                <span>いいねを取り消す</span>
+                </button>
+                <!-- NUll型の場合==trueを省略 -->
+                <?php else: ?>
                 <button class="btn btn-default btn-xs js-like">
                 <i class="fa fa-thumbs-up" aria-hidden="true"></i>
                 <span>いいね!</span>
                 </button>
+              <?php endif; ?>
                 <span>いいね数 : </span>
                 <span class="like_count"><?php echo $feed_each['like_count']; ?></span>
                 <span class="comment_count">コメント数 : 9</span>
