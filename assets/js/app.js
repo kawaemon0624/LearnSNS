@@ -1,10 +1,13 @@
 $(function() {
 
-    $('.js-like').on('click', function() {
+    //$('.js-like').on('click', function() {
       //DBに接続
       //jsクラス名　オブジェクト
+    $(document).on('click', '.js-like', function(){
+     //この書き方じゃないとバージョン的な意味合いで作動うしない為
       //user_id,feed_id 所得できているか確認
       //$(this) 今のイベントを発動させた部品
+
       var feed_id = $(this).siblings('.feed-id').text();
       var user_id = $('#signin-user').text();
 
@@ -33,6 +36,13 @@ $(function() {
           if (data =='true') {
             like_count++;//like_count+1と同じ意味
             like_btn.siblings('.like_count').text(like_count);//プラス１した数字を上書き
+
+            
+            like_btn.removeClass('js-like'); //ボタンからLikeボタンの目印であるクラスjs-likeを削除する
+            like_btn.addClass('js-unlike'); //ボタンにいいねを取り消すボタンの目印であるクラスjs-unlikeを削除する
+            like_btn.children('span').text('いいねを取り消す');　//ボタンの表記を変更
+            //likeからunlikeに変わった時にいいねを取り消すに表示変更する
+
           }
         })
         .fail(function(err){
@@ -72,6 +82,11 @@ $(function() {
           if (data =='true') {
             like_count--;//like_count-1と同じ意味
             like_btn.siblings('.like_count').text(like_count);//プラス１した数字を上書き
+
+            like_btn.removeClass('js-ulike'); 
+            like_btn.addClass('js-like'); 
+            like_btn.children('span').text('いいね!');//ボタンの表記を変更
+            //unlikeからlikeに変更した時にいいねに変わる
           }
         })
         .fail(function(err){

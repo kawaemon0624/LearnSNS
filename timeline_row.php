@@ -38,6 +38,7 @@
                 <i class="fa fa-thumbs-up" aria-hidden="true"></i>
                 <span>いいね!</span>
                 </button>
+                <!-- 子要素　children -->
               <?php endif; ?>
                 <span>いいね数 : </span>
                 <span class="like_count"><?php echo $feed_each['like_count']; ?></span>
