@@ -37,14 +37,28 @@
 
 
     //一覧データを所得するSELECT文を記述の所得
-    //$sql = 'SELECT * FROM `feeds` ORDER BY`created` DESC'; //一覧データを所得するSELECT文を記述
-    $sql='SELECT `f`.*,`u`.`name`,`u`.`img_name` AS`profile_image`FROM `feeds`AS `f` INNER JOIN `users` AS `u` ON `f`.`user_id`=`u`.`id` ORDER BY `created` DESC';
+    //$sql = 'SELECT * FROM `feeds` ORDER BY`created` DESC';
+
+    if (isset($_GET['search_word'])) {
+      //検索ワードがある時
+        $sql='SELECT `f`.*,`u`.`name`,`u`.`img_name` AS`profile_image`FROM `feeds`AS `f` INNER JOIN `users` AS `u` ON `f`.`user_id`=`u`.`id`WHERE`f`.`feed`LIKE ? ORDER BY `created` DESC';
+    //WHEREはORDER　BYの前にのルール
+        $search_word = "%".$_GET['search_word']."%";
+        $data = [$search_word];
+        
+
+    }else{
+     //一覧データを所得するSELECT文を記述
+      //検索ワードがない時
+        $sql='SELECT `f`.*,`u`.`name`,`u`.`img_name` AS`profile_image`FROM `feeds`AS `f` INNER JOIN `users` AS `u` ON `f`.`user_id`=`u`.`id` ORDER BY `created` DESC';
     //DESC 大きい数字から小さい数字に並べる
     //ASC 小さい数字から大きい数字に並べる
+        $data = [];
+    } 
     //ORDER BY 特定にからむ順に出来る
     // 結合する理由
     // 実際のシステムでは複数のテーブルでデータを管理し、そのデータをユーザが扱いやすいように結合して表示したりするので、テーブルの結合は必須です。
-    $data = array();
+
     $stmt = $dbh->prepare($sql);
     $stmt ->execute($data);
 
@@ -129,7 +143,7 @@
         </ul>
         <form method="GET" action="" class="navbar-form navbar-left" role="search">
           <div class="form-group">
-            <input type="text" name="search_word" class="form-control" placeholder="投稿を検索">
+            <input type="text" name='search_word' class="form-control" placeholder="投稿を検索">
           </div>
           <button type="submit" class="btn btn-default">検索</button>
         </form>
