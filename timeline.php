@@ -45,7 +45,7 @@
     //WHEREはORDER　BYの前にのルール
         $search_word = "%".$_GET['search_word']."%";
         $data = [$search_word];
-
+        
 
     }else{
      //一覧データを所得するSELECT文を記述
